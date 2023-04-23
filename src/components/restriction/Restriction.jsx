@@ -1,4 +1,4 @@
-import "./restriction.scss";
+import "./Restriction.scss";
 
 const Restriction = () => {
   return (
