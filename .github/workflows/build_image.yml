@@ -52,10 +52,10 @@ jobs:
     - uses: actions/checkout@v3
 
     - name: Builds docker images
-      run: docker compose up --build
+      run: docker compose up --build &
 
     - name: Stops all images
-      run: docker compose down -v
+      run: docker compose down -v &
       
     - name: Login to docker
       run: docker login --username '${{secrets.DOCKER_LOGIN}}' --password '${{secrets.DOCKER_PASSWORD}}'
@@ -63,7 +63,7 @@ jobs:
     - name: Push docker images
       run: |
         docker push '${{secrets.DOCKER_LOGIN}}'/smartmarketplace-web:'${{github.sha}}'
-        docker push '${{secrets.DOCKER_LOGIN}}'/smartmarketplace-api:'${{github.sha}}'
+        docker push '${{secrets.DOCKER_LOGIN}}'/smartmarketplace-api:'${{github.sha}}' 
 
   send_mail:
     needs: build_push_docker
