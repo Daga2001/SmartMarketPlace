@@ -84,6 +84,7 @@ DATABASES = {
         'NAME': 'smp_db',  # database name
         'USER': 'postgres',  # database user
         'PORT': '5433',  # database port
+        'HOST': 'db',
         'PASSWORD': '123456'  # database password
     }
 }
