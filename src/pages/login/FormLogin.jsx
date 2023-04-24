@@ -30,7 +30,7 @@ const FormLogin = () => {
       password: values.password,
     };
     console.log(data);
-    fetch("http://127.0.0.1:8000/mande/user/login", {
+    fetch("http:/localhost:8000/mande/user/login", {
       method: "POST",
       headers: { "Content-type": "application/json" },
       body: JSON.stringify(data),
