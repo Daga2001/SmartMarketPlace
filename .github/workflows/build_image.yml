@@ -42,7 +42,7 @@ jobs:
 
     - name: Run tests
       run: python ./SmartMarketPlace_backend/manage.py test core
-
+ 
   build_push_docker:
     needs: tests
     runs-on: ubuntu-latest
