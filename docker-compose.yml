@@ -1,6 +1,8 @@
 version: '3'
 
 services:
+  db:
+    image: postgres
   api:
     build: ./SmartMarketPlace_backend
     command: bash -c "python manage.py makemigrations && python manage.py migrate && python manage.py runserver 0.0.0.0:5432"
@@ -9,6 +11,8 @@ services:
       - ./SmartMarketPlace_backend:/smp-back
     ports:
       - "5432:5432"
+    depends_on:
+      - db
       
   web:
     build: .
