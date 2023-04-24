@@ -6,7 +6,9 @@ ENV PYTHONUNBUFFERED 1
 RUN mkdir /smp-back
 #Escojo ese directorio sm-back como mi directorio de trabajo
 WORKDIR /smp-back
-#Copio todo lo que tengo en la carpeta del Dockerfile a smp-back
-ADD . /smp-back
+#Copio Requirements.txt a smp-back
+ADD requirements.txt /smp-back
 #Corre el pip install de los requerimientos
 RUN pip install -r requirements.txt
+#Copio el resto de cosas
+ADD . /smp-back
