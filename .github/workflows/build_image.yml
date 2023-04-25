@@ -1,3 +1,4 @@
+<<<<<<< HEAD
 name: Django API and WEB application - docker push
 
 on:
@@ -100,3 +101,5 @@ jobs:
         attachments: attachments.zip,git.diff,./dist/static/*.js
         # Optional priority: 'high', 'normal' (default) or 'low'
         priority: high
+=======
+>>>>>>> hotfix
