@@ -42,7 +42,6 @@ jobs:
 
     - name: Run tests
       run: python ./SmartMarketPlace_backend/manage.py test core
- 
   build_push_docker:
     needs: tests
     runs-on: ubuntu-latest
@@ -60,11 +59,15 @@ jobs:
     - name: Login to docker
       run: docker login --username '${{secrets.DOCKER_LOGIN}}' --password '${{secrets.DOCKER_PASSWORD}}'
 
+    - name: Building docker images
+      run: |
+        docker build -t daga2001/front:${{github.sha}} ./SmartMarketPlace_backend
+        docker build -t daga2001/front:${{github.sha}} .
+
     - name: Push docker images
       run: |
-        docker push '${{secrets.DOCKER_LOGIN}}'/smartmarketplace-web:'${{github.sha}}'
-        docker push '${{secrets.DOCKER_LOGIN}}'/smartmarketplace-api:'${{github.sha}}' 
-
+        docker push daga2001/front:${{github.sha}}
+        docker push daga2001/back:${{github.sha}}
   send_mail:
     needs: build_push_docker
     runs-on: ubuntu-latest
