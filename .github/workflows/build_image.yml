@@ -59,10 +59,10 @@ jobs:
     - name: Login to docker
       run: docker login --username '${{secrets.DOCKER_LOGIN}}' --password '${{secrets.DOCKER_PASSWORD}}'
 
-    - name: Renaming docker images
+    - name: Building docker images
       run: |
-        docker tag smartmarketplace-web:latest daga2001/front:${{github.sha}}
-        docker tag smartmarketplace-api:latest daga2001/back:${{github.sha}}
+        docker build -t daga2001/front:${{github.sha}} ./SmartMarketPlace_backend
+        docker build -t daga2001/front:${{github.sha}} .
 
     - name: Push docker images
       run: |
