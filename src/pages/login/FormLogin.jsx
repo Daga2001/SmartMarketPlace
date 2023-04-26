@@ -41,10 +41,10 @@ const FormLogin = () => {
           "loginUser",
           "Token " + res.description.token
         );
-        context.setAppState({
-            ...context.appState,
-            admin: res.description.admin,
-          });
+        // context.setAppState({
+        //     ...context.appState,
+        //     admin: res.description.admin,
+        //   });
           if (window.localStorage.loginUser != undefined) {
             if(context.admin == false) {
                 navigate(`/worker/home`)
