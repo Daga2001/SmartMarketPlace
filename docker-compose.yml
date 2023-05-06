@@ -1,0 +1,39 @@
+version: '3'
+
+services:
+  db:
+    image: postgres
+    environment:
+      POSTGRES_DB: smp_db
+      POSTGRES_USER: postgres
+      POSTGRES_PASSWORD: 123456
+      POSTGRES_HOST_AUTH_METHOD: trust #agregado
+    expose:
+      - "5433" # Publishes 5433 to other containers but NOT to host machine
+    ports:
+      - "5433:5433"
+    volumes:
+      - db-data:/var/lib/postgresql/data
+    # volumes:
+    #   - ./backups:/home/backups
+    command: -p 5433
+
+  api:
+    build: ./SmartMarketPlace_backend
+    command: bash -c "python manage.py makemigrations && python manage.py migrate && python manage.py runserver 0.0.0.0:8000"
+    container_name: smp-back
+    volumes:
+      - ./SmartMarketPlace_backend:/smp-back
+    ports:
+      - "8000:8000"
+    depends_on:
+      - db
+
+  web:
+    build: .
+    container_name: smp-front
+    ports:
+      - "4000:4000"
+
+volumes:
+  db-data:

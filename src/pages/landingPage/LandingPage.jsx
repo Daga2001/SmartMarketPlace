@@ -1,4 +1,4 @@
-import "./landingPage.scss";
+import "./LandingPage.scss";
 import { Box } from "@mui/material";
 import TopbarLanding from "../../components/topbarLanding/TopbarLanding"
 

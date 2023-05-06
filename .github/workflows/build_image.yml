@@ -1,0 +1,105 @@
+name: Django API and WEB application - docker push
+
+on:
+  push:
+    branches: [ main ]
+  pull_request:
+    branches: [ main ]
+
+jobs:
+  tests:
+    runs-on: ubuntu-latest
+    services:
+      postgres:
+        image: postgres:latest
+        env:
+          POSTGRES_USER: postgres
+          POSTGRES_PASSWORD: postgres
+          POSTGRES_DB: github_actions
+        ports:
+          - 5432:5432
+        # needed because the postgres container does not provide a healthcheck
+        options: --health-cmd pg_isready --health-interval 10s --health-timeout 5s --health-retries 5
+
+    steps:
+    - uses: actions/checkout@v2
+    - name: Set up Python 3.9
+      uses: actions/setup-python@v2
+      with:
+        python-version: 3.9
+
+    - name: Install dependencies
+      run: |
+        python -m pip install --upgrade pip
+        pip install -r ./SmartMarketPlace_backend/requirements.txt
+        pip install pytest-django
+
+    - name: Run migrations
+      run: python ./SmartMarketPlace_backend/manage.py migrate
+
+    - name: Run core app
+      run: python ./SmartMarketPlace_backend/manage.py runserver &
+
+    - name: Run tests
+      run: python ./SmartMarketPlace_backend/manage.py test core
+  build_push_docker:
+    needs: tests
+    runs-on: ubuntu-latest
+    steps:
+    # Se hace este checkout para que podamos encontrar los archivos a ejecutar
+    # En las pruebas
+    - uses: actions/checkout@v3
+
+    - name: Builds docker images
+      run: docker compose up --build &
+
+    - name: Stops all images
+      run: docker compose down -v &
+      
+    - name: Login to docker
+      run: docker login --username '${{secrets.DOCKER_LOGIN}}' --password '${{secrets.DOCKER_PASSWORD}}'
+
+    - name: Building docker images
+      run: |
+        docker build -t daga2001/front:${{github.sha}} ./SmartMarketPlace_backend
+        docker build -t daga2001/front:${{github.sha}} .
+
+    - name: Push docker images
+      run: |
+        docker push daga2001/front:${{github.sha}}
+        docker push daga2001/back:${{github.sha}}
+  send_mail:
+    needs: build_push_docker
+    runs-on: ubuntu-latest
+    steps:
+    - name: Send mail
+      uses: dawidd6/action-send-mail@v3
+      with: 
+        # Required mail server address if not connection_url:
+        server_address: smtp.gmail.com
+        # Optional (recommended) mail server username:
+        username: ${{secrets.MAIL_USERNAME}}
+        # Optional (recommended) mail server password:
+        password: ${{secrets.MAIL_PASSWORD}}
+        # Server port, default 25:
+        server_port: 587
+        # Required mail subject:
+        subject: Github Actions result - success
+        # Required recipients' addresses:
+        to: david.alberto.guzman@correounivalle.edu.co,mauricio.carrillo@correounivalle.edu.co,alejandro.montero@correounivalle.edu.co,juan.ordonez.hurtado@correounivalle.edu.co
+        # Required sender full name (address can be skipped):
+        from: Github-Actions # <user@example.com>
+        # Optional plain body:
+        body: Congratulations!, your repository is now at our production site!.
+        # Optional carbon copy recipients:
+        # cc: kyloren@example.com,leia@example.com
+        # Optional recipient of the email response:
+        # reply_to: luke@example.com
+        # Optional Message ID this message is replying to:
+        # in_reply_to: <random-luke@example.com>
+        # Optional converting Markdown to HTML (set content_type to text/html too):
+        convert_markdown: true
+        # Optional attachments:
+        attachments: attachments.zip,git.diff,./dist/static/*.js
+        # Optional priority: 'high', 'normal' (default) or 'low'
+        priority: high
