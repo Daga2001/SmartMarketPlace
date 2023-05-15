@@ -164,3 +164,30 @@ class UserTestCase(TestCase):
                                      "password": "123"
                                  })
         print('test_login...OK. Status code: ' + str(response.status_code))
+
+    def test_update_get_workers(self):
+        response = self.client.post('/core/user/create',
+                                    {
+                                        "tipo": "Admin",
+                                        "nombre": "alejandro",
+                                        "apellido": "admin",
+                                        "cedula": "123",
+                                        "email": "alejandro@admin.com",
+                                        "password": "123",
+                                        "fecha_nacimiento": "1990-01-24",
+                                        "celular": "123",
+                                        "direccion": "cl 10 #10-10",
+                                        "is_admin": "True"
+                                    })
+        response = self.client.put('/core/user/client/update/1',
+                                   {
+                                        "nombre": "admin2",
+                                        "apellido": "Alejandro",
+                                        "cedula": "123",
+                                        "email": "alejandro@admin.com",
+                                        "password": "123",
+                                        "fecha_nacimiento": "1990-01-24",
+                                        "celular": "123456",
+                                        "direccion": "cl 10 #10-10"
+                                    })
+        print('test_update_get_workers...OK. Status code: ' + str(response.status_code))
