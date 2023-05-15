@@ -84,8 +84,8 @@ DATABASES = {
         'NAME': 'smp_db',  # database name
         'USER': 'postgres',  # database user
         'PORT': '5433',  # database port
-        'HOST': 'db',
-        'PASSWORD': '123456'  # database password
+        'HOST': 'localhost',
+        'PASSWORD': 'postgres'  # database password
     }
 }
 
@@ -148,5 +148,5 @@ AUTH_USER_MODEL = 'core.User'
 # for React
 CORS_ORIGIN_WHITELIST = (
     'http://localhost:4000',
-    'http://127.0.0.1:5173/login',
+    'http://172.17.112.1:4000/login',
 )

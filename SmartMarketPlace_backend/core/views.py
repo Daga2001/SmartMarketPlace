@@ -1,8 +1,3 @@
-from email import encoders
-from email.mime.base import MIMEBase
-from email.mime.multipart import MIMEMultipart
-from email.mime.text import MIMEText
-import smtplib
 from rest_framework import generics
 from rest_framework.response import Response
 from rest_framework.authtoken.views import ObtainAuthToken, AuthTokenSerializer
@@ -15,12 +10,6 @@ from rest_framework.decorators import api_view
 from rest_framework.settings import api_settings
 from rest_framework.decorators import permission_classes, authentication_classes
 from .models import User
-import requests
-import json
-from datetime import datetime, timedelta, date
-from django.template import loader
-from django.shortcuts import render
-from django.http import HttpResponse
 import hashlib
 
 # Create your views here. 
