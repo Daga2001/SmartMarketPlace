@@ -6,7 +6,7 @@ on:
   pull_request:
     types: [opened, synchronize, reopened]
 jobs:
-  build:
+  sonarcloud:
     runs-on: ubuntu-latest
     services:
       postgres:
@@ -32,6 +32,7 @@ jobs:
         python -m pip install --upgrade pip
         pip install -r ./SmartMarketPlace_backend/requirements.txt
         pip install pytest-django
+        pip install coverage
 
     - name: Run migrations
       run: python ./SmartMarketPlace_backend/manage.py migrate
@@ -39,12 +40,7 @@ jobs:
     - name: Run core app
       run: python ./SmartMarketPlace_backend/manage.py runserver &
 
-  sonarcloud:
-    needs: build
-    name: SonarCloud
-    runs-on: ubuntu-latest
-    steps:
-      - uses: actions/checkout@v3
+    - uses: actions/checkout@v3
         with:
           fetch-depth: 0  # Shallow clones should be disabled for a better relevancy of analysis
       - name: SonarCloud Scan
