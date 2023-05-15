@@ -41,8 +41,14 @@ jobs:
     - name: Run core app
       run: python ./SmartMarketPlace_backend/manage.py runserver &
 
-    - name: Run tests
+    - name: Run tests 
       run: python ./SmartMarketPlace_backend/manage.py test core
+
+    - name: Run coverage
+      run: coverage run ./SmartMarketPlace_backend/manage.py test
+
+    - name: Generate coverage
+      run: coverage html
 
     - name: SonarCloud Scan
       uses: SonarSource/sonarcloud-github-action@master
