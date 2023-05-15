@@ -147,6 +147,6 @@ AUTH_USER_MODEL = 'core.User'
 # White listing the localhost:3000 port
 # for React
 CORS_ORIGIN_WHITELIST = (
-    'http://localhost:3000',
+    'http://localhost:4000',
     'http://127.0.0.1:5173/login',
 )
