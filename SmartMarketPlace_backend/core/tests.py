@@ -1,14 +1,8 @@
-from django.test import TestCase, LiveServerTestCase
+from django.test import TestCase
 from rest_framework.authtoken.models import Token
 # from django.contrib.auth.models import User
 from core.models import User
-import json
 import requests
-import time
-import os
-from selenium import webdriver
-from selenium.webdriver.chrome.options import Options
-import pytest
 
 # Create your tests
 
@@ -140,7 +134,7 @@ class UserTestCase(TestCase):
                                         "fecha_nacimiento": "1990-01-24",
                                         "celular": "123",
                                         "direccion": "cl 10 #10-10",
-                                        "admin": "True"
+                                        "is_admin": "True"
                                     })
         print('test_user_create_admin...OK. Status code: ' + str(response.status_code))
 
@@ -151,9 +145,49 @@ class UserTestCase(TestCase):
 
 
     def test_login(self):
-        response = requests.post('http://localhost:8000/mande/user/login', 
+        response = self.client.post('/core/user/create',
+                                    {
+                                        "tipo": "Admin",
+                                        "nombre": "camilo",
+                                        "apellido": "admin",
+                                        "cedula": "123",
+                                        "email": "camilo@admin.com",
+                                        "password": "123",
+                                        "fecha_nacimiento": "1990-01-24",
+                                        "celular": "123",
+                                        "direccion": "cl 10 #10-10",
+                                        "is_admin": "True"
+                                    })
+        response = self.client.post('http://localhost:8000/mande/user/login', 
                                  {
                                      "email": "camilo@admin.com",
                                      "password": "123"
                                  })
-        print(response.status_code)
+        print('test_login...OK. Status code: ' + str(response.status_code))
+
+    def test_update_get_workers(self):
+        response = self.client.post('/core/user/create',
+                                    {
+                                        "tipo": "Admin",
+                                        "nombre": "alejandro",
+                                        "apellido": "admin",
+                                        "cedula": "123",
+                                        "email": "alejandro@admin.com",
+                                        "password": "123",
+                                        "fecha_nacimiento": "1990-01-24",
+                                        "celular": "123",
+                                        "direccion": "cl 10 #10-10",
+                                        "is_admin": "True"
+                                    })
+        response = self.client.put('/core/user/client/update/1',
+                                   {
+                                        "nombre": "admin2",
+                                        "apellido": "Alejandro",
+                                        "cedula": "123",
+                                        "email": "alejandro@admin.com",
+                                        "password": "123",
+                                        "fecha_nacimiento": "1990-01-24",
+                                        "celular": "123456",
+                                        "direccion": "cl 10 #10-10"
+                                    })
+        print('test_update_get_workers...OK. Status code: ' + str(response.status_code))
