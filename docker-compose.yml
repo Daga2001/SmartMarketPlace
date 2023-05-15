@@ -34,6 +34,18 @@ services:
     container_name: smp-front
     ports:
       - "4000:4000"
+    
+  sonarqube:
+    container_name: "sonarqube-container"        
+    image: "sonarqube:8.9.10-community"
+    volumes:
+      - ./sonarqube/extensions:/opt/sonarqube/extensions
+      - ./sonarqube/logs:/opt/sonarqube/logs
+      - ./sonarqube/data:/opt/sonarqube/data
+    expose:
+      - "9000"
+    ports:
+      - "9000:9000"
 
 volumes:
   db-data:
