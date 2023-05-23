@@ -5,6 +5,7 @@ python ./SmartMarketPlace_backend/manage.py test core.tests 1> test.txt 2> test_
 
 tests:
 coverage run ./SmartMarketPlace_backend/manage.py test 
+coverage run manage.py test
 coverage html
 coverage xml
 

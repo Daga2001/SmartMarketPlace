@@ -32,7 +32,7 @@ class CreateTokenView(ObtainAuthToken):
             data=request.data, context={'request': request})
         if serializer.is_valid():
             user = serializer.validated_data['user']
-            token, created = Token.objects.get_or_create(user=user)
+            token, _ = Token.objects.get_or_create(user=user)
             return Response({
                 'error': False,
                 'token': token.key,
@@ -81,12 +81,12 @@ def admin_get_put_worker(request, pk):
 @permission_classes([AllowAny])
 def login_user(request):
     print("user:",request.data) 
-    hashedPassword = hashlib.sha256()
-    hashedPassword.update(request.data["password"].encode())
-    hexPassword = hashedPassword.hexdigest()
-    print("hexPasswd:",hexPassword)
+    hashed_password = hashlib.sha256()
+    hashed_password.update(request.data["password"].encode())
+    hex_password = hashed_password.hexdigest()
+    print("hexPasswd:",hex_password)
     try:
-        user = User.objects.get(email=request.data["email"], password=hexPassword)
+        user = User.objects.get(email=request.data["email"], password=hex_password)
     except User.DoesNotExist:
         return Response({"error": True, "error_cause": 'User does not exist'}, status=status.HTTP_404_NOT_FOUND)
     token = Token.objects.get(user_id=user.id)
