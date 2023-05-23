@@ -45,7 +45,9 @@ jobs:
       run: python ./SmartMarketPlace_backend/manage.py test core
 
     - name: Run coverage
-      run: coverage run ./SmartMarketPlace_backend/manage.py test
+      run: |
+      cd SmartMarketPlace_backend
+      coverage run manage.py test
 
     - name: Generate coverage
       run: coverage xml
