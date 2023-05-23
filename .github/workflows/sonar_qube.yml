@@ -48,10 +48,8 @@ jobs:
       run: |
         cd SmartMarketPlace_backend
         coverage run manage.py test
+        coverage xml
         cd ..
-
-    - name: Generate coverage
-      run: coverage xml
 
     - name: SonarCloud Scan
       uses: SonarSource/sonarcloud-github-action@master
