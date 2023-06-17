@@ -63,6 +63,7 @@ jobs:
 
     - name: Push Docker images
       run: |
+        docker-compose push
         docker tag front daga2001/front:'${{github.sha}}'
         docker push daga2001/front:'${{github.sha}}'
         docker tag back daga2001/back:'${{github.sha}}'
