@@ -20,6 +20,7 @@ services:
 
   api:
     build: ./SmartMarketPlace_backend
+    image: daga2001/back
     command: bash -c "python manage.py makemigrations && python manage.py migrate && python manage.py runserver 0.0.0.0:8000"
     container_name: smp-back
     volumes:
@@ -31,6 +32,7 @@ services:
 
   web:
     build: .
+    image: daga2001/front
     container_name: smp-front
     ports:
       - "4000:4000"
