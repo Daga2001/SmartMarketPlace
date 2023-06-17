@@ -11,6 +11,8 @@ scanner(
             'sonar.projectVersion': '0.0.1',
             'sonar.exclusions': 'node_modules/**, SmartMarketPlace_backend/**, .github/**',
             'sonar.projectBaseDir': '../',
+            'sonar.login': 'admin',
+            'sonar.password':'admin',
             'sonar.sourceEncoding': 'UTF-8',
         }
     },
