@@ -1,6 +1,6 @@
 from rest_framework import serializers
 from django.contrib.auth import get_user_model, authenticate
-from core.models import *
+from core.models import User
 from dateutil.relativedelta import relativedelta
 import hashlib
 
@@ -38,19 +38,19 @@ class UserSerializer(serializers.ModelSerializer):
         user = get_user_model().objects.create_user(**validated_data)
         if tipo == "Admin":
             password = validated_data.pop('password')
-            hashedPass = hashlib.sha256()
-            hashedPass.update(password.encode())
-            fPass = hashedPass.hexdigest()
+            hashed_pass = hashlib.sha256()
+            hashed_pass.update(password.encode())
+            final_pass = hashed_pass.hexdigest()
             user.is_admin = True
-            user.password = fPass
+            user.password = final_pass
             user.save()
         elif tipo == "Worker":
             password = validated_data.pop('password')
-            hashedPass = hashlib.sha256()
-            hashedPass.update(password.encode())
-            fPass = hashedPass.hexdigest()
+            hashed_pass = hashlib.sha256()
+            hashed_pass.update(password.encode())
+            final_pass = hashed_pass.hexdigest()
             user.is_admin = False
-            user.password = fPass
+            user.password = final_pass
             user.save()
         return user
 

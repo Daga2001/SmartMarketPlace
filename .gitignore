@@ -2,4 +2,8 @@
 .env
 data
 postgres-data
-node_modules/
+.scannerwork
+sonarqube/extensions
+sonarqube/data
+sonarqube/logs
+node_modules

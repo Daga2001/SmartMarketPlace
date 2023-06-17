@@ -28,7 +28,7 @@ const FormRegistration = () => {
       address: values.address,
       is_admin: False
     };
-    fetch("http://127.0.0.1:8000/mande/user/create", {
+    fetch("http://localhost:8000/mande/user/create", {
       method: "POST",
       headers: { "Content-type": "application/json" },
       body: JSON.stringify(data),

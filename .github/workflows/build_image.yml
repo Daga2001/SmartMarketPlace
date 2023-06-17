@@ -71,39 +71,39 @@ jobs:
         docker push daga2001/front:'${{github.sha}}'
         docker tag daga2001/back daga2001/back:'${{github.sha}}'
         docker push daga2001/back:'${{github.sha}}'
-
-  # send_mail:
-  #   needs: build_push_docker
-  #   runs-on: ubuntu-latest
-  #   steps:
-  #   - name: Send mail
-  #     uses: dawidd6/action-send-mail@v3
-  #     with: 
-  #       # Required mail server address if not connection_url:
-  #       server_address: smtp.gmail.com
-  #       # Optional (recommended) mail server username:
-  #       username: ${{secrets.MAIL_USERNAME}}
-  #       # Optional (recommended) mail server password:
-  #       password: ${{secrets.MAIL_PASSWORD}}
-  #       # Server port, default 25:
-  #       server_port: 587
-  #       # Required mail subject:
-  #       subject: Github Actions result - success
-  #       # Required recipients' addresses:
-  #       to: david.alberto.guzman@correounivalle.edu.co,mauricio.carrillo@correounivalle.edu.co,alejandro.montero@correounivalle.edu.co,juan.ordonez.hurtado@correounivalle.edu.co
-  #       # Required sender full name (address can be skipped):
-  #       from: Github-Actions # <user@example.com>
-  #       # Optional plain body:
-  #       body: Congratulations!, your repository is now at our production site!.
-  #       # Optional carbon copy recipients:
-  #       # cc: kyloren@example.com,leia@example.com
-  #       # Optional recipient of the email response:
-  #       # reply_to: luke@example.com
-  #       # Optional Message ID this message is replying to:
-  #       # in_reply_to: <random-luke@example.com>
-  #       # Optional converting Markdown to HTML (set content_type to text/html too):
-  #       convert_markdown: true
-  #       # Optional attachments:
-  #       attachments: attachments.zip,git.diff,./dist/static/*.js
-  #       # Optional priority: 'high', 'normal' (default) or 'low'
-  #       priority: high
+  
+  send_mail:
+    needs: build_push_docker
+    runs-on: ubuntu-latest
+    steps:
+    - name: Send mail
+      uses: dawidd6/action-send-mail@v3
+      with: 
+        # Required mail server address if not connection_url:
+        server_address: smtp.gmail.com
+        # Optional (recommended) mail server username:
+        username: ${{secrets.MAIL_USERNAME}}
+        # Optional (recommended) mail server password:
+        password: ${{secrets.MAIL_PASSWORD}}
+        # Server port, default 25:
+        server_port: 587
+        # Required mail subject:
+        subject: Github Actions result - success
+        # Required recipients' addresses:
+        to: david.alberto.guzman@correounivalle.edu.co,mauricio.carrillo@correounivalle.edu.co,alejandro.montero@correounivalle.edu.co,juan.ordonez.hurtado@correounivalle.edu.co
+        # Required sender full name (address can be skipped):
+        from: Github-Actions # <user@example.com>
+        # Optional plain body:
+        body: Congratulations!, your repository is now at our production site!.
+        # Optional carbon copy recipients:
+        # cc: kyloren@example.com,leia@example.com
+        # Optional recipient of the email response:
+        # reply_to: luke@example.com
+        # Optional Message ID this message is replying to:
+        # in_reply_to: <random-luke@example.com>
+        # Optional converting Markdown to HTML (set content_type to text/html too):
+        convert_markdown: true
+        # Optional attachments:
+        attachments: attachments.zip,git.diff,./dist/static/*.js
+        # Optional priority: 'high', 'normal' (default) or 'low'
+        priority: high

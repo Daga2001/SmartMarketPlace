@@ -84,7 +84,7 @@ DATABASES = {
         'NAME': 'smp_db',  # database name
         'USER': 'postgres',  # database user
         'PORT': '5433',  # database port
-        'HOST': 'db',
+        'HOST': 'localhost',
         'PASSWORD': '123456'  # database password
     }
 }
@@ -147,6 +147,6 @@ AUTH_USER_MODEL = 'core.User'
 # White listing the localhost:3000 port
 # for React
 CORS_ORIGIN_WHITELIST = (
-    'http://localhost:3000',
-    'http://127.0.0.1:5173/login',
+    'http://localhost:4000',
+    'http://172.17.112.1:4000/login',
 )
