@@ -2,3 +2,4 @@
 .env
 data
 postgres-data
+node_modules/
