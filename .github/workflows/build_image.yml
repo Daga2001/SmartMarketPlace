@@ -61,6 +61,9 @@ jobs:
       run: |
         docker-compose build
 
+    - name: List Docker images
+      run: docker images
+
     - name: Push Docker images
       run: |
         docker-compose push
