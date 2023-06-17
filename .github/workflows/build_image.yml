@@ -58,9 +58,9 @@ jobs:
         password: ${{ secrets.DOCKER_PASSWORD }}
 
     - name: Set up Docker Compose
-        uses: docker/compose-cli@v1
-        with:
-          version: "1.29.2"
+      uses: docker/compose-cli@v1
+      with:
+        version: "1.29.2"
 
     - name: Build Docker images
       run: |
