@@ -1,0 +1,6 @@
+Para correr los scan:
+1- Usar npm install para instalar las dependencias.
+2- usar el comando cd sonarqube para entrar a la carpeta de sonarqube
+3- correr los scan con node sonarscanback.cjs y node sonarscanfront.cjs
+4- Los resultados se colocan en localhost:9000
+5- Si se cambia la contraseña, entonces cambiar sonar.password en los archivos de scan a la nueva contraseña. 
