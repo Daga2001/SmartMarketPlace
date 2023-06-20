@@ -1,0 +1,39 @@
+name: Despliegue en GKE
+
+on:
+  push:
+    branches:
+      - [ main, hotfix ]
+  pull_request:
+    branches:
+      - [ main, hotfix ]
+
+env:
+  PROJECT_ID: ${{ secrets.PROJECT_ID }}
+  KUBE_NAMESPACE: smartmarketplace
+  KUBE_DEPLOYMENT_NAME: smp-app
+  KUBE_SERVICE_NAME: smp-app
+
+jobs:
+  deploy:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout del código fuente
+        uses: actions/checkout@v2
+
+      - name: Configurar Google Cloud SDK
+        uses: google-github-actions/setup-gcloud@master
+        with:
+          project_id: ${{ secrets.PROJECT_ID }}
+          service_account_key: ${{ secrets.GCLOUD_AUTH }}
+
+      - name: Autenticar con GKE
+        run: |
+          gcloud container clusters get-credentials smartmarketplace-2023 --zone=us-central1
+
+      - name: Despliegue en GKE
+        run: |
+          kubectl apply -f  smp-app-deployments.yaml -n smartmarketplace
+          kubectl apply -f  smp-app-istio.yaml -n smartmarketplace
+          kubectl apply -f  smp-app-service.yaml -n smartmarketplace
