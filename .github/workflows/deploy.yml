@@ -22,10 +22,10 @@ jobs:
         uses: actions/checkout@v2
 
       - name: Configurar Google Cloud SDK
-        uses: google-github-actions/setup-gcloud@v1.1.1
-        with:
-          project_id: ${{ secrets.PROJECT_ID }}
-          service_account_key: ${{ secrets.GCLOUD_AUTH }}
+        uses: google-github-actions/setup-gcloud@1bee7de035d65ec5da40a31f8589e240eba8fde5
+      with:
+        service_account_key: ${{ secrets.GCLOUD_AUTH }}
+        project_id: ${{ secrets.PROJECT_ID }}
 
       - name: Autenticar con Google Cloud
         run: |
