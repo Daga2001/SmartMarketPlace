@@ -5,6 +5,9 @@
 # SmartMarketPlace
 Web application for commercing products in stock and providing sales information
 
+## Backend-repository
+https://github.com/Daga2001/SmartMarketPlace_backend
+
 ## Authors
 - Mauricio Carrillo
 - David Alberto
