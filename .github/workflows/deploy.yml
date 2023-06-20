@@ -48,4 +48,4 @@ jobs:
       - name: Despliegue en GKE 
         run: |
           kubectl apply -f  smp-app-config.yaml -n smartmarketplace
-          
+           
