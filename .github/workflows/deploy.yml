@@ -45,7 +45,7 @@ jobs:
           credentials: ${{ secrets.GCLOUD_AUTH }}
           project_id: ${{ secrets.PROJECT_ID }}
 
-      - name: Despliegue en GKE
+      - name: Despliegue en GKE 
         run: |
           kubectl apply -f  smp-app-deployments.yaml -n smartmarketplace
           kubectl apply -f  smp-app-istio.yaml -n smartmarketplace
