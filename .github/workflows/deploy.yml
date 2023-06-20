@@ -28,7 +28,7 @@ jobs:
           service_account_key: ${{ secrets.GCLOUD_AUTH }}
 
       - name: Autenticar con Google Cloud
-        run: gcloud auth login
+        run: gcloud auth login --quiet
 
       - name: Seleccionar cuenta de Google Cloud
         run: gcloud config set account ACCOUNT
