@@ -45,7 +45,9 @@ web application for debugging purposes.
 6. Run the core app: here we run the DB service.
 7. Run tests: here we test our web application, where a DB is required.
 8. Run coverage: returns the results and we read it in sonarcloud.
-9. Perform SonarCloud scan.
+9. Perform SonarCloud scan: this will allows us monitoring our application, i.e. To check the coverage of our tests.
+
+![image](https://github.com/Daga2001/SmartMarketPlace/assets/62605744/aeb8fd85-d4a7-4831-8c7e-6ab372499891)
 
 ## Pipeline: Django API and WEB Application - Docker Push
 
