@@ -1,9 +1,2 @@
 *.pyc
 .env
-data
-postgres-data
-.scannerwork
-sonarqube/extensions
-sonarqube/data
-sonarqube/logs
-node_modules

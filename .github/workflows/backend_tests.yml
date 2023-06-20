@@ -1,12 +1,14 @@
-name: Python application
+name: Python application - Django tests
 
-on: [push]
+on:
+  push:
+    branches: [ develop ]
+  pull_request:
+    branches: [ develop ]
 
 jobs:
   build:
-
     runs-on: ubuntu-latest
-
     services:
       postgres:
         image: postgres:latest

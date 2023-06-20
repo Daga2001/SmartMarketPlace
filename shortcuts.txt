@@ -3,10 +3,4 @@ python ./SmartMarketPlace_backend/manage.py migrate
 python ./SmartMarketPlace_backend/manage.py runserver
 python ./SmartMarketPlace_backend/manage.py test core.tests 1> test.txt 2> test_err.txt
 
-tests:
-coverage run ./SmartMarketPlace_backend/manage.py test 
-coverage run manage.py test
-coverage html 
-coverage xml
-
 ../venv/scripts/activate
