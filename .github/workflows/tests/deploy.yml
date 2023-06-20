@@ -9,7 +9,8 @@ on:
 
 env:
   PROJECT_ID: ${{ secrets.PROJECT_ID }}
-  KUBE_NAMESPACE: smartmarketplace
+  KUBE_CLUSTERNAME: smartmarketplace-2023
+  KUBE_LOCATION: us-central1
   KUBE_DEPLOYMENT_NAME: smp-app
   KUBE_SERVICE_NAME: smp-app
 
@@ -24,13 +25,13 @@ jobs:
       - name: Configurar Google Cloud SDK
         uses: google-github-actions/setup-gcloud@1bee7de035d65ec5da40a31f8589e240eba8fde5
         with:
-          service_account_key: ${{ secrets.GCLOUD_AUTH }}
           project_id: ${{ secrets.PROJECT_ID }}
+          install_components: "kubectl"
 
       - name: Autenticar con Google Cloud
-        run: |
-          echo "${{ secrets.GCLOUD_AUTH }}" | base64 --decode > ${HOME}/gcloud-auth.json
-          gcloud auth activate-service-account --key-file=${HOME}/gcloud-auth.json
+        uses: google-github-actions/auth@v0.5.0
+        with:
+          credentials_json: ${{ secrets.GOOGLE_APPLICATION_CREDENTIALS }}
 
       - name: Seleccionar cuenta de Google Cloud
         run: gcloud config set account ACCOUNT
@@ -38,10 +39,13 @@ jobs:
           ACCOUNT: david.alberto.guzman@correounivalle.edu.co
 
       - name: Autenticar con GKE
-        run: |
-          gcloud container clusters get-credentials smartmarketplace-2023 --zone=us-central1
+        uses: google-github-actions/get-gke-credentials@db150f2cc60d1716e61922b832eae71d2a45938f
+        with:
+          cluster_name: ${{ env.KUBE_CLUSTERNAME }}
+          location: ${{ env.KUBE_LOCATION }}
+          project_id: ${{ secrets.PROJECT_ID }}
 
-      - name: Despliegue en GKE
+      - name: Despliegue en GKE 
         run: |
           kubectl apply -f  smp-app-deployments.yaml -n smartmarketplace
           kubectl apply -f  smp-app-istio.yaml -n smartmarketplace
