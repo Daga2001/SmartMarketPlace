@@ -27,6 +27,14 @@ jobs:
           project_id: ${{ secrets.PROJECT_ID }}
           service_account_key: ${{ secrets.GCLOUD_AUTH }}
 
+      - name: Autenticar con Google Cloud
+        run: gcloud auth login
+
+      - name: Seleccionar cuenta de Google Cloud
+        run: gcloud config set account ACCOUNT
+        env:
+          ACCOUNT: david.alberto.guzman@correounivalle.edu.co
+
       - name: Autenticar con GKE
         run: |
           gcloud container clusters get-credentials smartmarketplace-2023 --zone=us-central1
