@@ -43,6 +43,7 @@ jobs:
           cluster_name: ${{ env.KUBE_CLUSTERNAME }}
           location: ${{ env.KUBE_LOCATION }}
           credentials: ${{ secrets.GCLOUD_AUTH }}
+          project_id: ${{ secrets.PROJECT_ID }}
 
       - name: Despliegue en GKE
         run: |
